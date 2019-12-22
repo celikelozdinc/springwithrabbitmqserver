@@ -13,8 +13,10 @@ public class RabbitConfig {
     @Value("${smoc.rabbitmq.exchange}")
     private String IPC_EXCHANGE ;
 
+    /*
     @Value("${smoc.rabbitmq.routingkey}")
     private String IPC_ROUTING_KEY ;
+     */
 
     @Bean
     Queue ipcQueue() {
@@ -28,7 +30,8 @@ public class RabbitConfig {
 
     @Bean
     Binding binding(Queue ipcQueue, DirectExchange ipcExchange) {
-        return BindingBuilder.bind(ipcQueue).to(ipcExchange).with(IPC_ROUTING_KEY);
+        //return BindingBuilder.bind(ipcQueue).to(ipcExchange).with(IPC_ROUTING_KEY);
+        return BindingBuilder.bind(ipcQueue).to(ipcExchange).with("rpc");
     }
 
 

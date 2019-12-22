@@ -15,7 +15,7 @@ public class Server {
     static final Logger logger = LoggerFactory.getLogger(Server.class);
 
     @RabbitListener(queues = "${smoc.rabbitmq.queue}")
-    public void process(Message msg) throws UnknownHostException {
+    public String process(Message msg) throws UnknownHostException {
         InetAddress localhost = InetAddress.getLocalHost();
         String ipAddr = localhost.getHostAddress();
         String hostname = localhost.getHostName();
@@ -23,6 +23,7 @@ public class Server {
         logger.info("Ip Addr of server  = {}",ipAddr);
         logger.info("Hostname of server = {}",hostname);
         logger.info("Message Received from client. Hostname of client={}, IP of client={}",msg.getHostname(),msg.getIpAddr());
+        return "ACKNOWLEDGE";
     }
 
 
